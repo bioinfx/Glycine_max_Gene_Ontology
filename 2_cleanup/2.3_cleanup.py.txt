@@ -1,0 +1,89 @@
+# Cleans aggregated GAF file:
+# 1. Removes obsolete Annotations
+# 2. Merges GO terms to main term (alt_id->id)
+# 3. (optional) Adds transcript variant to column 17
+# 4. Changes assigned by and db columns to the following values:
+DB          = "LIS(legumeinfo.org/data)"
+ASSIGNED_BY = "GOMAP"
+# 5. Removes duplicates
+# 
+# Usage:
+#   python 2_cleanup.py [input-gaf-file] [OBO-file] [gene-to-transcript-map (optional)]
+#    - OBO-file: Gene ontology in obo format. Most recent version can be obtained from http://www.geneontology.org/page/download-ontology which might be good when using this script on your own results.
+#    - gene-to-transcript-map: headerless space separated file of gene_name transcript_name , used to add correct transcript_name to column 17. See 2_cleanup_resources/gene_to_used_transcript_map.csv for an example
+#  GAF output will be sent to STDOUT, status messages to STDERR. So if you want to save the cleaned up GAF you can redirect STDOUT
+#   python 2_cleanup.py [input-gaf-file] [OBO-file] [gene-to-transcript-map (optional)] > [output-gaf-file]
+# See README.md in this directory to see how to reproduce our results
+
+# This script uses the obo_parser.py taken from https://github.com/mschubert/python-obo/blob/master/obo/parser.py
+
+from cleanup_resources import obo_parser
+import sys
+import csv
+from sets import Set
+
+### Preparation ###
+## Build list of obsolete ids and alt_ids
+
+merge_to = {} # merge_to[goterm] == id to be merged to.
+obsolete_ids = []
+
+print >> sys.stderr, 'Parsing go.obo...'
+with open(sys.argv[2]) as obofile:
+  parser = obo_parser.Parser(obofile)
+  for stanza in parser:
+    if not stanza.name == "Term":
+      continue
+
+    go_id = stanza.tags["id"][0]
+
+    if 'alt_id' in stanza.tags:
+      for alt_id in stanza.tags['alt_id']:
+        merge_to[alt_id] = go_id
+
+    if 'is_obsolete' in stanza.tags and stanza.tags['is_obsolete'][0] == "true":
+      obsolete_ids.append(go_id)
+
+## Build gene->transcript variant map
+transcript_map = {} # transcript_map[gene] == used splice variant for gene
+if len(sys.argv) > 3 and sys.argv[3]:
+  print >> sys.stderr, 'Parsing gene to transcript map'
+  with open(sys.argv[3]) as mapfile:
+    mapreader = csv.reader(mapfile, delimiter=' ')
+    for row in mapreader:
+      transcript_map[row[0]] = row[1]
+
+### DO IT
+printed_tuples = Set()
+n_obsolete = 0
+n_duplicate = 0
+print >> sys.stderr, 'Printing cleaned GAF file'
+with open(sys.argv[1]) as infile:
+  # infile.readline() # Skip over this line because it's just the GAF header and that would confuse the CSV reader
+  reader = csv.reader(infile, delimiter="\t")
+  writer = csv.writer(sys.stdout, delimiter="\t")
+
+  # Write back two header lines unchanged
+  writer.writerow(reader.next())
+  writer.writerow(reader.next())
+
+  for row in reader:
+    if row[4] in merge_to:
+      row[4] = merge_to[row[4]]
+    if row[4] in obsolete_ids:
+      n_obsolete += 1
+      continue
+    # Through merging with alt_ids some duplicates may have been created. Skip them!
+    if (row[1], row[4]) in printed_tuples:
+      n_duplicate += 1
+      continue
+    if row[1] in transcript_map:
+      row[16] = transcript_map[row[1]] 
+    row[0] = DB
+    row[14] = ASSIGNED_BY
+    printed_tuples.add( (row[1], row[4]) )
+    writer.writerow(row)
+
+print >> sys.stderr, '  ' + str(n_obsolete) + ' obsolete annotations were removed.'
+print >> sys.stderr, '  ' + str(n_duplicate) + ' duplicates were removed.'
+print >> sys.stderr, 'done.'

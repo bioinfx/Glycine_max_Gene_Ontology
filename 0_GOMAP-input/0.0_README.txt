@@ -1,0 +1,39 @@
+/0.0_README.txt - this file 
+  
+  
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+*                                                                             * 
+*   Please note, most of the data files contained in this DOI are             * 
+*   compressed into GZip files (.gz extension).                               * 
+*   Mac and Linux OS's can extract this file type natively.                   * 
+*   Windows OS requires software to extract the archive.  7-Zip               * 
+*   (http://www.7-zip.org) is free and open source software that will         * 
+*   allow windows PCs to open and decompress the archive.                     * 
+*                                                                             * 
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+  
+  
+/0.1_glyma.Wm82.gnm4.ann1.T8TQ.protein_primaryTranscript.faa.gz
+     Primary transcripts for all protein coding genes in the Joint Genome
+     Institute (JGI) Glycine Max genome assembly Wm82.a4.v1 (genotype
+     Williams 82, assembly 4.0, gene model annotation 1.0).
+     The file was downloaded in April 2019 from the LIS data store at
+     https://legumeinfo.org/data/public/Glycine_max/Wm82.gnm4.ann1.T8TQ/glyma.Wm82.gnm4.ann1.T8TQ.protein_primaryTranscript.faa.gz
+
+/0.2_remove_asterisks.sh
+     Simple sed command to remove asterisks (*) at the end of the FASTA
+     sequences which mark a stop codon but cause problems with the tools
+     used in GOMAP. The resulting file 0.3_GOMAP-input.fa was used as the
+     input for the GOMAP pipeline.
+
+/0.3_GOMAP-input.fa.gz
+     Result of applying the 0.2 script on the downloaded file 0.1, input
+     for GOMAP.
+  
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+  
+For questions regarding released datasets contact: 
+  Corresponding Author: Carolyn Lawrence-Dill (Iowa State University) 
+                        triffid@iastate.edu 
+  
+  https://dill-picl.org/projects/gomap 

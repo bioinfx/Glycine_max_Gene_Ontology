@@ -1,0 +1,25 @@
+/1.0_README.txt - this file 
+  
+  
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+*                                                                             * 
+*   Please note, most of the data files contained in this DOI are             * 
+*   compressed into GZip files (.gz extension).                               * 
+*   Mac and Linux OS's can extract this file type natively.                   * 
+*   Windows OS requires software to extract the archive.  7-Zip               * 
+*   (http://www.7-zip.org) is free and open source software that will         * 
+*   allow windows PCs to open and decompress the archive.                     * 
+*                                                                             * 
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+  
+  
+/1.1_GOMAP-output.gaf.gz  Aggregated output the GOMAP pipeline generated on the
+                          input in ../0_GOMAP-input/0.3_GOMAP-input.fa
+  
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+  
+For questions regarding released datasets contact: 
+  Corresponding Author: Carolyn Lawrence-Dill (Iowa State University) 
+                        triffid@iastate.edu 
+  
+  https://dill-picl.org/projects/gomap 

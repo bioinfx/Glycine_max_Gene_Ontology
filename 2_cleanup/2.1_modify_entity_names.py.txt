@@ -1,0 +1,23 @@
+# This script modifies entity names in the GAF file:
+#  1. The GAF format demands a gene identifier instead of a transcript identifier in column 1, so the transcript number is cut off
+#  2. Column 2 is populated with the simpler form Glyma.[gene_id].Wm82.a4.v1 that is synonymous to the id in column 1
+#  3. Column 17 is populated with the transcript ID in the format Glyma.[gene_id].[transcript_number].Wm82.a4.v1
+
+import sys
+import csv
+
+with open(sys.argv[1]) as infile:
+  reader = csv.reader(infile, delimiter="\t")
+  writer = csv.writer(sys.stdout, delimiter="\t")
+
+  # Write back two header lines unchanged
+  writer.writerow(reader.next())
+  writer.writerow(reader.next())
+
+  for row in reader:
+    gene_id = "Glyma."+row[1].split(".")[-2]+".Wm82.a4.v1"
+    transcript_id = "Glyma."+".".join(row[1].split(".")[-2:])+".Wm82.a4.v1"
+    row[1] = ".".join(row[1].split(".")[:-1])
+    row[16] = transcript_id
+    row[2] = gene_id
+    writer.writerow(row)

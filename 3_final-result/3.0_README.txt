@@ -1,0 +1,34 @@
+/3.0_README.txt - this file 
+  
+  
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+*                                                                             * 
+*   Please note, most of the data files contained in this DOI are             * 
+*   compressed into GZip files (.gz extension).                               * 
+*   Mac and Linux OS's can extract this file type natively.                   * 
+*   Windows OS requires software to extract the archive.  7-Zip               * 
+*   (http://www.7-zip.org) is free and open source software that will         * 
+*   allow windows PCs to open and decompress the archive.                     * 
+*                                                                             * 
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+  
+  
+/3.1_Glycine_max_JGI_Wm82.a4.v1.cleaned.gaf.gz
+  Final result: functional annotation set for the protein coding genes in the
+  Joint Genome Institute (JGI) Glycine Max genome assembly Wm82.a4.v1 (genotype
+  Williams 82, assembly 4.0, gene model annotation 1.0). These are the
+  annotations we will submit to the GO databases.
+
+/3.2_locus_mapping_to_a2.txt
+  Mapping of the gene identifiers of this assembly to the Wm82.a2.v1 assembly.
+  This file was downloaded as-is and renamed in April 2019 from 
+   https://legumeinfo.org/data/public/Glycine_max/Wm82.gnm4.ann1.T8TQ/glyma.Wm82.gnm4.ann1.T8TQ.info_locus_transcript_name_map.txt.gz
+  
+  
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+  
+For questions regarding released datasets contact: 
+  Corresponding Author: Carolyn Lawrence-Dill (Iowa State University) 
+                        triffid@iastate.edu 
+  
+  https://dill-picl.org/projects/gomap 
