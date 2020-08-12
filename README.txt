@@ -41,7 +41,7 @@ that file for more details.
                     see README in that folder for details.
 
 /4_make_GO_db       Making An Organism Package From Annotations Available From A Set Of Named Data.Frames.
-                    Testing Gene Ontology annotation for a list of soyben genes
+                    Testing Gene Ontology annotation for a list of soybean genes
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 
